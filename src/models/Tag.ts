@@ -35,13 +35,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
     formRepresentation: {
       component: 'InputValue',
       row: 2,
-      rule: [
-        (value: unknown) => {
-          if (value) return true
-
-          return 'Required field'
-        }
-      ]
+      rule: []
     }
   },
   color: {
@@ -49,7 +43,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
     dataDialog: '',
     tableColumn: '',
     formRepresentation: {
-      component: 'InputValue',
+      component: 'ColorPicker',
       row: 3,
       rule: [
         (value: unknown) => {
@@ -62,4 +56,4 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
   }
 }
 
-export const TagDataModel: Partial<TagCreate | TagPatch> = {}
+export const TagDataModel: Partial<TagCreate | TagPatch> = { name: '', icon: '', color: '#ff0000' }
