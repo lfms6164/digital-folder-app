@@ -1,29 +1,23 @@
 <template>
-  <v-dialog
-    v-model="formDialogVisible"
-    class="d-flex flex-column justify-center"
-    persistent
-    transition="dialog-bottom-transition"
-    max-width="400"
-  >
-    <v-sheet :elevation="24" rounded="xl" class="pa-6">
-      <h2 class="text-h5 text-center mb-4">{{ selectedTag ? 'Edit Tag' : 'Create Tag' }}</h2>
-      <DFForm
-        :representation="TagRepresentation"
-        :model-value="selectedTag ? selectedTag : TagDataModel"
-        @cancel="
-          () => {
-            formDialogVisible = false
-            selectedTag = null
-          }
-        "
-        @submit="handleSubmit"
-      ></DFForm>
-    </v-sheet>
-  </v-dialog>
+  <DFFormDialog
+    :title="selectedTag ? 'Edit Tag' : 'Create Tag'"
+    :show-dialog="formDialogVisible"
+    :representation="TagRepresentation"
+    :model-value="selectedTag ? selectedTag : TagDataModel"
+    :loading="loading"
+    @cancel="
+      () => {
+        formDialogVisible = false
+        selectedTag = null
+      }
+    "
+    @submit="handleSubmit"
+  />
 
   <DFConfirmDialog
+    :item="selectedTag"
     :show-dialog="confirmDialogVisible"
+    :loading="loading"
     @close="
       () => {
         confirmDialogVisible = false
@@ -55,6 +49,7 @@
                 :style="{ backgroundColor: item.items[0].raw.color }"
                 :prepend-icon="`mdi-${item.items[0].raw.icon}`"
                 rounded="sm"
+                variant="text"
                 @click="toggleGroup(item)"
               >
                 {{ item.value }}
@@ -74,7 +69,7 @@
         </template>
 
         <template v-slot:item.color="{ item }">
-          <v-chip :style="{ backgroundColor: item.color }">
+          <v-chip :style="{ backgroundColor: item.color }" variant="text">
             {{ item.color }}
           </v-chip>
         </template>
@@ -113,7 +108,7 @@ import { TagCreate, TagPatch } from '../api'
 import { TagDataModel, TagRepresentation } from '../models/Tag'
 import { useTagStore } from '../stores/tagStore'
 import DFConfirmDialog from '../components/DFConfirmDialog.vue'
-import DFForm from '../components/DFForm.vue'
+import DFFormDialog from '../components/DFFormDialog.vue'
 
 const tagStore = useTagStore()
 const loading = ref<boolean>(false)
