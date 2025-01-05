@@ -11,8 +11,9 @@
       <DFForm
         :representation="props.representation"
         :model-value="props.modelValue"
-        @cancel="emit('cancel')"
-        @submit="emit('submit')"
+        :loading="loading"
+        @cancel="handleCancel"
+        @submit="handleSubmit"
       />
     </v-sheet>
   </v-dialog>
@@ -26,7 +27,16 @@ const props = defineProps<{
   showDialog: boolean
   representation: GenericRepresentation<any>
   modelValue: any
+  loading: boolean
 }>()
 
 const emit = defineEmits(['cancel', 'submit'])
+
+const handleCancel = () => {
+  emit('cancel')
+}
+
+const handleSubmit = (formData: any) => {
+  emit('submit', formData)
+}
 </script>
