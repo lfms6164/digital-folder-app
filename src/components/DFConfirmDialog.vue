@@ -3,7 +3,7 @@
     <v-dialog :model-value="props.showDialog" max-width="600">
       <v-card>
         <v-card-text>
-          {{ 'Are you sure you want to delete this item?' }}
+          {{ `Are you sure you want to delete ${item ? item.name : 'this item'}?` }}
         </v-card-text>
 
         <v-divider></v-divider>
@@ -11,9 +11,16 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text="Close" variant="plain" @click="emit('close')"></v-btn>
+          <v-btn text="Close" variant="plain" :disabled="loading" @click="emit('close')"></v-btn>
 
-          <v-btn color="primary" text="Confirm" variant="tonal" @click="emit('confirm')"></v-btn>
+          <v-btn
+            color="primary"
+            text="Confirm"
+            variant="tonal"
+            :disabled="loading"
+            :loading="loading"
+            @click="emit('confirm')"
+          ></v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -22,7 +29,9 @@
 
 <script setup lang="ts">
 const props = defineProps<{
+  item: any
   showDialog: boolean
+  loading: boolean
 }>()
 
 const emit = defineEmits(['close', 'confirm'])
