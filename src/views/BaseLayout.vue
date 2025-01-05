@@ -61,7 +61,7 @@
         :disabled="!isAdmin"
         @click="visible = !visible"
       />
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         v-for="(icon, i) in footerIcons"
         :key="i"
@@ -81,13 +81,10 @@ import { useLoginStore } from '../stores/loginStore'
 import router from '../router'
 
 const route = useRoute()
-
 const loginStore = useLoginStore()
-
-const visible = ref<boolean>(false)
-
 const isAdmin = computed((): boolean => loginStore.isAdmin)
 const viewMode = isAdmin.value ? 'ADMIN' : 'GUEST'
+const visible = ref<boolean>(false)
 
 const adminActions = [
   {
