@@ -1,4 +1,14 @@
 <template>
+  <DFFormDialog
+    title="Authentication"
+    :show-dialog="dialogVisible"
+    :representation="AuthRepresentation"
+    :model-value="AuthDataModel"
+    :loading="loading"
+    @cancel="dialogVisible = false"
+    @submit="handleSubmit"
+  />
+
   <div class="d-flex flex-column h-100">
     <v-sheet
       class="d-flex align-center justify-center mx-auto mt-16"
@@ -27,33 +37,6 @@
           @click="router.push('/front')"
         />
       </v-row>
-
-      <v-dialog
-        v-model="dialogVisible"
-        class="d-flex flex-column justify-center"
-        persistent
-        transition="dialog-bottom-transition"
-        max-width="400"
-      >
-        <v-sheet :elevation="24" rounded="xl" class="pa-6">
-          <h2 class="text-h5 text-center mb-4">Authentication</h2>
-          <DFForm
-            :representation="AuthRepresentation"
-            :model-value="AuthDataModel"
-            @cancel="dialogVisible = false"
-            @submit="handleSubmit"
-          />
-        </v-sheet>
-      </v-dialog>
-
-      <!-- <DFFormDialog
-        title="Authentication"
-        :show-dialog="dialogVisible"
-        :representation="AuthRepresentation"
-        :model-value="AuthDataModel"
-        @cancel="dialogVisible = false"
-        @submit="handleSubmit"
-      /> -->
     </v-sheet>
   </div>
 </template>
@@ -64,14 +47,20 @@ import { AuthArgs } from '../api'
 import { AuthDataModel, AuthRepresentation } from '../models/Auth'
 import { useLoginStore } from '../stores/loginStore'
 import router from '../router'
-import DFForm from '../components/DFForm.vue'
+import DFFormDialog from '../components/DFFormDialog.vue'
 
 const loginStore = useLoginStore()
 
 const dialogVisible = ref<boolean>(false)
+const loading = ref<boolean>(false)
 
 const handleSubmit = async (formData: AuthArgs) => {
-  await loginStore.authenticate(formData)
-  if (localStorage.getItem('accessToken')) router.push('/front')
+  loading.value = true
+  try {
+    await loginStore.authenticate(formData)
+    if (localStorage.getItem('accessToken')) router.push('/front')
+  } finally {
+    loading.value = false
+  }
 }
 </script>
