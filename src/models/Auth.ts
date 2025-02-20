@@ -4,8 +4,7 @@ import { GenericRepresentation } from './Generic'
 export const AuthRepresentation: GenericRepresentation<AuthArgs> = {
   username: {
     label: 'Username',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'InputValue',
       row: 1,
@@ -20,8 +19,7 @@ export const AuthRepresentation: GenericRepresentation<AuthArgs> = {
   },
   password: {
     label: 'Password',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'InputValue',
       row: 2,

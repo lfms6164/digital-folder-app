@@ -4,8 +4,7 @@ import { GenericRepresentation } from './Generic'
 export const TagRepresentation: GenericRepresentation<TagOut> = {
   id: {
     label: '',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'Hidden',
       row: 0,
@@ -14,8 +13,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
   },
   name: {
     label: 'Name',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'InputValue',
       row: 1,
@@ -30,8 +28,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
   },
   icon: {
     label: 'Icon',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'InputValue',
       row: 2,
@@ -40,8 +37,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
   },
   color: {
     label: 'Color',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'ColorPicker',
       row: 3,

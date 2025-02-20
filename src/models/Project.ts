@@ -5,8 +5,7 @@ import { GenericRepresentation } from './Generic'
 export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
   id: {
     label: '',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'Hidden',
       row: 0,
@@ -15,8 +14,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
   },
   name: {
     label: 'Name',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'InputValue',
       row: 1,
@@ -31,18 +29,17 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
   },
   image: {
     label: 'Image',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
-      component: 'InputValue',
+      component: 'FileInput',
+      icon: 'mdi-image',
       row: 2,
       rule: []
     }
   },
   description: {
     label: 'Description',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'InputValue',
       row: 3,
@@ -51,8 +48,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
   },
   tags: {
     label: 'Tags',
-    dataDialog: '',
-    tableColumn: '',
+    tableRepresentation: '',
     formRepresentation: {
       component: 'Autocomplete',
       listItems: async () => {
@@ -70,4 +66,4 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
   }
 }
 
-export const ProjectDataModel: Partial<ProjectCreate> = { image: '', description: '', tags: null }
+export const ProjectDataModel: Partial<ProjectCreate> = { image: null, description: '', tags: null }

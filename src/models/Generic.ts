@@ -4,13 +4,12 @@ export type GenericRepresentation<Type> = {
 
 export type GenericProperties = {
   label: string
-  dataDialog: any
-  tableColumn: any
+  tableRepresentation: any
   formRepresentation: FormRepresentation
 }
 
 interface BaseFormRepresentation {
-  component: 'Autocomplete' | 'CheckBox' | 'ColorPicker' | 'InputValue' | 'Hidden'
+  component: 'Autocomplete' | 'CheckBox' | 'ColorPicker' | 'FileInput' | 'Hidden' | 'InputValue'
   row: number
   rule: any
 }
@@ -19,6 +18,7 @@ type FormRepresentation =
   | AutocompleteProperties
   | CheckBoxProperties
   | ColorPickerProperties
+  | FileInputProperties
   | HiddenProperties
   | InputValueProperties
 
@@ -34,6 +34,11 @@ export interface CheckBoxProperties extends BaseFormRepresentation {
 
 export interface ColorPickerProperties extends BaseFormRepresentation {
   component: 'ColorPicker'
+}
+
+export interface FileInputProperties extends BaseFormRepresentation {
+  component: 'FileInput'
+  icon: string
 }
 
 export interface HiddenProperties extends BaseFormRepresentation {
