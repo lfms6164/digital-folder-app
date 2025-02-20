@@ -7,7 +7,7 @@
         {{ item.name }}
         <v-checkbox-btn
           v-if="isAdmin"
-          :model-value="selected"
+          :model-value="props.selectedId === item.id ? true : false"
           :disabled="!!selectedId && selectedId !== item.id"
           @update:model-value="
             () => {
@@ -28,7 +28,7 @@
           rounded="sm"
           variant="text"
         >
-          {{ chip.name }}
+          {{ item.tags.length > 5 ? '' : chip.name }}
         </v-chip>
       </v-chip-group>
 
@@ -40,8 +40,12 @@
         :icon="expand ? 'mdi-folder-open' : 'mdi-folder'"
         @click="expand = !expand"
       />
-
-      <DFButton v-if="action" icon="mdi-open-in-app" @click="router.push(action)" />
+      <v-btn
+        v-ripple="false"
+        variant="text"
+        icon="mdi-magnify-expand"
+        @click="router.push(`/project/${item.id}`)"
+      />
     </v-card-actions>
 
     <v-expand-transition>
@@ -57,7 +61,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import router from '../router'
-import DFButton from './DFButton.vue'
 import { useLoginStore } from '../stores/loginStore'
 
 const loginStore = useLoginStore()
@@ -66,9 +69,8 @@ const isAdmin = computed((): boolean => loginStore.isAdmin)
 const expand = ref<boolean>(false)
 const selected = ref<boolean>(false)
 
-defineProps<{
+const props = defineProps<{
   item: any
-  action?: string
   selectedId?: string
 }>()
 
