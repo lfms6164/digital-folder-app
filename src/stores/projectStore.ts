@@ -17,6 +17,15 @@ export const useProjectStore = defineStore('projectStore', () => {
     }
   }
 
+  const getProjectById = async (projectId: string) => {
+    try {
+      const response = await ApiCall.get(`/api/projects/project/${projectId}`)
+      return response.data
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
   const createProject = async (project: ProjectCreate) => {
     try {
       await ApiCall.post('/api/projects/create', project)
@@ -25,7 +34,7 @@ export const useProjectStore = defineStore('projectStore', () => {
     }
   }
 
-  const editProject = async (projectId: string, project: ProjectPatch) => {
+  const editProject = async (projectId: string, project: Partial<ProjectPatch>) => {
     try {
       await ApiCall.patch(`/api/projects/patch/${projectId}`, project)
     } catch (error) {
@@ -45,6 +54,7 @@ export const useProjectStore = defineStore('projectStore', () => {
     items,
     itemsCount,
     listProjects,
+    getProjectById,
     createProject,
     editProject,
     deleteProjectById
