@@ -20,9 +20,10 @@ const router = createRouter({
         //   component: () => import('../views/LoginView.vue')
         // },
         {
-          path: '/front',
-          name: 'front',
-          component: () => import('../views/FrontPage.vue')
+          path: '/project/:id',
+          name: 'project',
+          component: () => import('../views/ProjectView.vue'),
+          props: true
         },
         {
           path: '/projects',

@@ -34,7 +34,7 @@
           stacked
           density="comfortable"
           rounded="lg"
-          @click="router.push('/front')"
+          @click="router.push('/projects')"
         />
       </v-row>
     </v-sheet>
@@ -58,7 +58,7 @@ const handleSubmit = async (formData: AuthArgs) => {
   loading.value = true
   try {
     await loginStore.authenticate(formData)
-    if (localStorage.getItem('accessToken')) router.push('/front')
+    if (localStorage.getItem('accessToken')) router.push('/projects')
   } finally {
     loading.value = false
   }

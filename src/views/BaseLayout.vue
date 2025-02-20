@@ -7,8 +7,8 @@
 
       <v-btn
         icon="mdi-home-outline"
-        :disabled="route.path === '/front'"
-        @click="router.push('/front')"
+        :disabled="route.path === '/projects'"
+        @click="router.push('/projects')"
       />
       <v-divider class="mx-3 align-self-center" length="40" thickness="3" vertical></v-divider>
 
