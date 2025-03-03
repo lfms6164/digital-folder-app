@@ -95,7 +95,8 @@ const formComponentsMap = {
   CheckBox: 'v-checkbox',
   ColorPicker: 'v-color-picker',
   FileInput: 'v-file-input',
-  InputValue: 'v-text-field'
+  InputValue: 'v-text-field',
+  TextArea: 'v-textarea'
 }
 
 const submit = async (event: any) => {

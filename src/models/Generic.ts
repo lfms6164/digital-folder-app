@@ -8,7 +8,14 @@ export type GenericProperties = {
 }
 
 interface BaseFormRepresentation {
-  component: 'Autocomplete' | 'CheckBox' | 'ColorPicker' | 'FileInput' | 'Hidden' | 'InputValue'
+  component:
+    | 'Autocomplete'
+    | 'CheckBox'
+    | 'ColorPicker'
+    | 'FileInput'
+    | 'Hidden'
+    | 'InputValue'
+    | 'TextArea'
   row: number
   rule: any
 }
@@ -20,6 +27,7 @@ type FormRepresentation =
   | FileInputProperties
   | HiddenProperties
   | InputValueProperties
+  | TextAreaProperties
 
 export interface AutocompleteProperties extends BaseFormRepresentation {
   component: 'Autocomplete'
@@ -47,4 +55,8 @@ export interface HiddenProperties extends BaseFormRepresentation {
 export interface InputValueProperties extends BaseFormRepresentation {
   component: 'InputValue'
   type?: 'password'
+}
+
+export interface TextAreaProperties extends BaseFormRepresentation {
+  component: 'TextArea'
 }
