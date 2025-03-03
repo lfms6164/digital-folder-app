@@ -4,7 +4,7 @@
     class="d-flex flex-column justify-center"
     persistent
     transition="dialog-bottom-transition"
-    max-width="400"
+    :max-width="dialogWidth ?? 400"
   >
     <v-sheet :elevation="24" rounded="xl" class="pa-6">
       <h2 class="text-h5 text-center mb-4">{{ props.title }}</h2>
@@ -22,7 +22,9 @@
 <script setup lang="ts">
 import { GenericRepresentation } from '../models/Generic'
 import DFForm from '../components/DFForm.vue'
+
 const props = defineProps<{
+  dialogWidth?: number
   title: string
   showDialog: boolean
   representation: GenericRepresentation<any>

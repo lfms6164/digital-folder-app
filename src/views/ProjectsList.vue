@@ -1,5 +1,6 @@
 <template>
   <DFFormDialog
+    :dialog-width="800"
     :title="`${$t(selectedCard ? 'action.edit' : 'action.create')} ${$t('entity.project.name')}`"
     :show-dialog="formDialogVisible"
     :representation="ProjectRepresentation"
