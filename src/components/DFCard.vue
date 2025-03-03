@@ -1,6 +1,11 @@
 <template>
   <v-card class="mx-auto border" color="#252529">
-    <v-img v-if="item.image" height="200px" :src="item.image" cover />
+    <v-img
+      v-if="item.image"
+      height="200px"
+      :src="`http://127.0.0.1:8080/static/${item.image}`"
+      cover
+    />
 
     <v-card-title>
       <div class="d-flex justify-space-between align-center">
@@ -33,18 +38,16 @@
       </v-chip-group>
 
       <v-spacer />
-      <v-btn
+      <DFBtn
         v-if="item.description"
-        v-ripple="false"
-        variant="text"
-        :icon="expand ? 'mdi-folder-open' : 'mdi-folder'"
-        @click="expand = !expand"
+        :tooltip="`${expand ? $t('action.close') : $t('action.open')} ${$t('entity.project.fields.description')}`"
+        :icon="expand ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+        @on-click="expand = !expand"
       />
-      <v-btn
-        v-ripple="false"
-        variant="text"
+      <DFBtn
+        :tooltip="`${$t('action.inspect')} ${$t('entity.project.name')}`"
         icon="mdi-magnify-expand"
-        @click="router.push(`/project/${item.id}`)"
+        @on-click="router.push(`/project/${item.id}`)"
       />
     </v-card-actions>
 
@@ -60,8 +63,9 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import router from '../router'
 import { useLoginStore } from '../stores/loginStore'
+import router from '../router'
+import DFBtn from '../components/DFBtn.vue'
 
 const loginStore = useLoginStore()
 const isAdmin = computed((): boolean => loginStore.isAdmin)

@@ -1,6 +1,6 @@
 <template>
   <DFFormDialog
-    title="Authentication"
+    :title="$t('entity.auth.name')"
     :show-dialog="dialogVisible"
     :representation="AuthRepresentation"
     :model-value="AuthDataModel"
@@ -20,7 +20,7 @@
       <v-row justify="center">
         <v-btn
           prepend-icon="mdi-account-cog"
-          text="Admin"
+          :text="$t('base_layout.banner.admin')"
           variant="text"
           stacked
           density="comfortable"
@@ -29,7 +29,7 @@
         />
         <v-btn
           prepend-icon="mdi-account"
-          text="Guest"
+          :text="$t('base_layout.banner.guest')"
           variant="text"
           stacked
           density="comfortable"

@@ -1,10 +1,10 @@
 <template>
   <DFFormDialog
-    :title="selectedCard ? 'Edit Project' : 'Create Project'"
+    :title="`${$t(selectedCard ? 'action.edit' : 'action.create')} ${$t('entity.project.name')}`"
     :show-dialog="formDialogVisible"
     :representation="ProjectRepresentation"
-    :model-value="selectedCard ? selectedCard : ProjectDataModel"
-    :loading="loading"
+    :model-value="selectedCard ?? ProjectDataModel"
+    :loading="dialogLoading"
     @cancel="formDialogVisible = false"
     @submit="handleSubmit"
   />
@@ -12,42 +12,45 @@
   <DFConfirmDialog
     :item="selectedCard"
     :show-dialog="confirmDialogVisible"
-    :loading="loading"
+    :loading="dialogLoading"
     @close="confirmDialogVisible = false"
     @confirm="handleDelete"
   />
 
   <div>
     <v-sheet class="border" rounded>
-      <v-btn icon="mdi-arrow-left" variant="text" @click="loginStore.resetAuth" />
+      <DFBtn :tooltip="$t('action.back')" icon="mdi-arrow-left" @on-click="loginStore.resetAuth" />
       <template v-if="isAdmin">
-        <v-btn
+        <DFBtn
+          :tooltip="`${$t('action.create')} ${$t('entity.project.name')}`"
           icon="mdi-plus"
-          variant="text"
           :disabled="enabled"
-          @click="formDialogVisible = true"
+          @on-click="formDialogVisible = true"
         />
-        <v-btn
+        <DFBtn
+          :tooltip="`${$t('action.edit')} ${$t('entity.project.name')}`"
           icon="mdi-pencil"
-          variant="text"
           :disabled="!enabled"
-          @click="formDialogVisible = true"
+          @on-click="formDialogVisible = true"
         />
-        <v-btn
+        <DFBtn
+          :tooltip="`${$t('action.delete')} ${$t('entity.project.name')}`"
           color="red"
           icon="mdi-delete"
-          variant="text"
           :disabled="!enabled"
-          @click="confirmDialogVisible = true"
+          @on-click="confirmDialogVisible = true"
         />
       </template>
 
+      <h2 class="text-h5 text-center mx-auto">{{ $t('entity.project.name', 2) }}</h2>
       <v-container fluid>
         <v-row>
           <v-col v-for="project in projectStore.items" :key="project.id" :cols="4">
+            <v-skeleton-loader v-if="loading" type="card" />
             <DFCard
+              v-else
               :item="project"
-              :selected-id="selectedCard ? selectedCard.id : null"
+              :selected-id="selectedCard?.id ?? null"
               @selected="
                 (item, selected) => {
                   enabled = selected
@@ -68,6 +71,7 @@ import { useLoginStore } from '../stores/loginStore'
 import { useProjectStore } from '../stores/projectStore'
 import { ProjectCreate, ProjectPatch } from '../api'
 import { ProjectRepresentation, ProjectDataModel } from '../models/Project'
+import DFBtn from '../components/DFBtn.vue'
 import DFCard from '../components/DFCard.vue'
 import DFConfirmDialog from '../components/DFConfirmDialog.vue'
 import DFFormDialog from '../components/DFFormDialog.vue'
@@ -77,6 +81,7 @@ const loginStore = useLoginStore()
 const isAdmin = computed((): boolean => loginStore.isAdmin)
 
 const loading = ref<boolean>(false)
+const dialogLoading = ref<boolean>(false)
 const formDialogVisible = ref<boolean>(false)
 const confirmDialogVisible = ref<boolean>(false)
 const enabled = ref<boolean>(false)
@@ -92,6 +97,10 @@ const getModifiedFields = (original: ProjectPatch, updated: ProjectPatch) => {
 }
 
 onMounted(async () => {
+  await loadItems()
+})
+
+const loadItems = async () => {
   loading.value = true
 
   try {
@@ -99,38 +108,40 @@ onMounted(async () => {
   } finally {
     loading.value = false
   }
-})
+}
 
 const handleSubmit = async (formData: ProjectCreate) => {
-  loading.value = true
+  dialogLoading.value = true
 
   try {
     if (selectedCard.value) {
       let modifiedData = getModifiedFields(selectedCard.value, formData)
       if (Object.keys(modifiedData).length) {
-        await projectStore.editProject(selectedCard.value.id, modifiedData)
+        await projectStore.editProject(selectedCard.value, modifiedData)
       }
     } else {
       await projectStore.createProject(formData)
     }
   } finally {
-    loading.value = false
+    enabled.value = false
+    selectedCard.value = null
+    dialogLoading.value = false
     formDialogVisible.value = false
-    await projectStore.listProjects()
+    await loadItems()
   }
 }
 
 const handleDelete = async () => {
-  loading.value = true
+  dialogLoading.value = true
 
   try {
-    if (selectedCard.value) await projectStore.deleteProjectById(selectedCard.value.id)
+    if (selectedCard.value) await projectStore.deleteProjectById(selectedCard.value)
   } finally {
     enabled.value = false
     selectedCard.value = null
-    loading.value = false
+    dialogLoading.value = false
     confirmDialogVisible.value = false
-    await projectStore.listProjects()
+    await loadItems()
   }
 }
 </script>

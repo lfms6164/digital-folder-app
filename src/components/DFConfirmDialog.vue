@@ -1,9 +1,20 @@
 <template>
   <div class="pa-4 text-center">
-    <v-dialog :model-value="props.showDialog" max-width="600">
+    <v-dialog
+      :model-value="props.showDialog"
+      class="d-flex flex-column justify-center"
+      persistent
+      transition="dialog-bottom-transition"
+      max-width="600"
+    >
       <v-card>
         <v-card-text>
-          {{ `Are you sure you want to delete ${item ? item.name : 'this item'}?` }}
+          {{
+            $t('dialog.text', {
+              action: $t('action.delete').toLowerCase(),
+              entity: item?.name ?? 'this item'
+            })
+          }}
         </v-card-text>
 
         <v-divider></v-divider>

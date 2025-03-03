@@ -2,19 +2,27 @@
   <v-layout>
     <v-app-bar v-if="visible">
       <v-btn icon="mdi-apps" readonly />
-      {{ 'Admin Panel' }}
+      {{ $t('base_layout.admin_panel.name') }}
       <v-divider class="mx-3 align-self-center" length="40" thickness="3" vertical></v-divider>
 
-      <v-btn
+      <DFBtn
+        :tooltip="$t('base_layout.admin_panel.home')"
         icon="mdi-home-outline"
         :disabled="route.path === '/projects'"
-        @click="router.push('/projects')"
+        @on-click="router.push('/projects')"
       />
       <v-divider class="mx-3 align-self-center" length="40" thickness="3" vertical></v-divider>
 
       <v-menu transition="slide-y-transition">
         <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" icon="mdi-format-list-bulleted-square" />
+          <v-tooltip :text="$t('base_layout.admin_panel.actions.name')" location="bottom">
+            <template v-slot:activator="{ props: tooltipProps }">
+              <v-btn
+                v-bind="{ ...props, ...tooltipProps }"
+                icon="mdi-format-list-bulleted-square"
+              />
+            </template>
+          </v-tooltip>
         </template>
         <v-list>
           <v-list-item
@@ -28,9 +36,13 @@
         </v-list>
       </v-menu>
 
-      <v-divider class="mx-3 align-self-center" length="40" thickness="3" vertical></v-divider>
+      <v-divider class="mx-3 align-self-center" length="40" thickness="3" vertical />
 
-      <v-btn icon="mdi-api" @click="openUrl('http://127.0.0.1:8080')" />
+      <DFBtn
+        :tooltip="$t('base_layout.admin_panel.api')"
+        icon="mdi-api"
+        @on-click="openUrl('http://127.0.0.1:8080')"
+      />
     </v-app-bar>
 
     <v-main>
@@ -43,8 +55,10 @@
           rounded
           style="display: flex; justify-content: center; align-items: center"
         >
-          <!-- <v-icon :icon="viewMode == 'ADMIN' ? 'mdi-account-cog' : 'mdi-account'" /> -->
-          <strong>{{ viewMode }}</strong>
+          <v-icon :icon="isAdmin ? 'mdi-account-cog' : 'mdi-account'" />
+          <strong>{{
+            $t(`base_layout.banner.${isAdmin ? 'admin' : 'guest'}`).toUpperCase()
+          }}</strong>
         </v-banner>
       </div>
 
@@ -54,22 +68,20 @@
     </v-main>
 
     <v-footer app height="40">
-      <v-btn
-        v-ripple="false"
-        variant="text"
+      <DFBtn
+        :tooltip="`${$t(`action.${visible ? 'hide' : 'show'}`)} ${$t('base_layout.admin_panel.name')}`"
         :icon="visible ? 'mdi-shield-lock-open-outline' : 'mdi-shield-lock-outline'"
         :disabled="!isAdmin"
-        @click="visible = !visible"
+        @on-click="visible = !visible"
       />
       <v-spacer />
-      <v-btn
-        v-for="(icon, i) in footerIcons"
+      <DFBtn
+        v-for="(btn, i) in footerBtns"
         :key="i"
-        :icon="icon.icon"
-        v-ripple="false"
-        variant="text"
-        @click="openUrl(icon.url)"
-      ></v-btn>
+        :tooltip="btn.tooltip"
+        :icon="btn.icon"
+        @on-click="openUrl(btn.url)"
+      />
     </v-footer>
   </v-layout>
 </template>
@@ -79,11 +91,11 @@ import { computed, ref } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import { useLoginStore } from '../stores/loginStore'
 import router from '../router'
+import DFBtn from '../components/DFBtn.vue'
 
 const route = useRoute()
 const loginStore = useLoginStore()
 const isAdmin = computed((): boolean => loginStore.isAdmin)
-const viewMode = isAdmin.value ? 'ADMIN' : 'GUEST'
 const visible = ref<boolean>(false)
 
 const adminActions = [
@@ -94,13 +106,15 @@ const adminActions = [
   }
 ]
 
-const footerIcons = [
+const footerBtns = [
   {
     icon: 'mdi-github',
+    tooltip: 'GitHub',
     url: 'https://github.com/lfms6164'
   },
   {
     icon: 'mdi-linkedin',
+    tooltip: 'LinkedIn',
     url: 'https://www.linkedin.com/in/leonardo-silva-663a9719a/'
   }
 ]
