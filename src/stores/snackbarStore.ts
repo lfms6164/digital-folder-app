@@ -6,7 +6,7 @@ export const useSnackbarStore = defineStore('snackbarStore', () => {
 
   const statusColorIconMap: Record<number, Record<string, string>> = {
     1: {
-      color: 'info',
+      color: 'warning',
       icon: 'information-slab-symbol'
     },
     200: {
