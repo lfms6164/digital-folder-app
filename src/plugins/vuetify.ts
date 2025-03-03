@@ -11,10 +11,11 @@ const customTheme: ThemeDefinition = {
     background: '#D0D7D9',
     surface: '#1b2224',
     primary: '#aab8bd',
-    secondary: '#aab8bd'
-    // info: '#aab8bd',
-    // success: '#aab8bd'
-    // warning: '#aab8bd'
+    secondary: '#acaabd',
+    info: '#1e6a94',
+    success: '#41941e',
+    // warning: '#1d7696',
+    error: '#941e1e'
   }
 }
 
