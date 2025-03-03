@@ -1,0 +1,67 @@
+{
+  "action": {
+    "back": "Go back",
+    "close": "Close",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "inspect": "Inspect",
+    "hide": "Hide",
+    "open": "Open",
+    "show": "Show"
+  },
+  "base_layout": {
+    "admin_panel": {
+      "actions": {
+        "name": "Admin Actions",
+        "tags": "Tags"
+      },
+      "api": "API",
+      "home": "Home Page",
+      "name": "Admin Panel"
+    },
+    "banner": {
+      "admin": "Admin",
+      "guest": "Guest"
+    },
+    "footer": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "dialog": {
+    "action": {
+      "cancel": "Cancel",
+      "close": "Close",
+      "confirm": "Confirm",
+      "submit": "Submit"
+    },
+    "text": "Are you sure you want to {action} {entity}?"
+  },
+  "entity": {
+    "auth": {
+      "fields": {
+        "password": "Password",
+        "username": "Username"
+      },
+      "name": "Authentication"
+    },
+    "project": {
+      "fields": {
+        "description": "Description",
+        "image": "Image",
+        "name": "Name",
+        "tags": "Tags"
+      },
+      "name": "Project | Projects"
+    },
+    "tag": {
+      "fields": {
+        "color": "Color",
+        "icon": "Icon",
+        "name": "Name"
+      },
+      "name": "Tag | Tags"
+    }
+  }
+}
