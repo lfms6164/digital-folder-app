@@ -3,8 +3,7 @@ import { GenericRepresentation } from './Generic'
 
 export const AuthRepresentation: GenericRepresentation<AuthArgs> = {
   username: {
-    label: 'Username',
-    tableRepresentation: '',
+    label: 'entity.auth.fields.username',
     formRepresentation: {
       component: 'InputValue',
       row: 1,
@@ -18,8 +17,7 @@ export const AuthRepresentation: GenericRepresentation<AuthArgs> = {
     }
   },
   password: {
-    label: 'Password',
-    tableRepresentation: '',
+    label: 'entity.auth.fields.password',
     formRepresentation: {
       component: 'InputValue',
       row: 2,

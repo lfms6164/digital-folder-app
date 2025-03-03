@@ -4,7 +4,6 @@ import { GenericRepresentation } from './Generic'
 export const TagRepresentation: GenericRepresentation<TagOut> = {
   id: {
     label: '',
-    tableRepresentation: '',
     formRepresentation: {
       component: 'Hidden',
       row: 0,
@@ -12,8 +11,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
     }
   },
   name: {
-    label: 'Name',
-    tableRepresentation: '',
+    label: 'entity.tag.fields.name',
     formRepresentation: {
       component: 'InputValue',
       row: 1,
@@ -27,8 +25,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
     }
   },
   icon: {
-    label: 'Icon',
-    tableRepresentation: '',
+    label: 'entity.tag.fields.icon',
     formRepresentation: {
       component: 'InputValue',
       row: 2,
@@ -36,8 +33,7 @@ export const TagRepresentation: GenericRepresentation<TagOut> = {
     }
   },
   color: {
-    label: 'Color',
-    tableRepresentation: '',
+    label: 'entity.tag.fields.color',
     formRepresentation: {
       component: 'ColorPicker',
       row: 3,

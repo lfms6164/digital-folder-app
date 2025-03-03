@@ -5,7 +5,6 @@ import { GenericRepresentation } from './Generic'
 export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
   id: {
     label: '',
-    tableRepresentation: '',
     formRepresentation: {
       component: 'Hidden',
       row: 0,
@@ -13,8 +12,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
     }
   },
   name: {
-    label: 'Name',
-    tableRepresentation: '',
+    label: 'entity.project.fields.name',
     formRepresentation: {
       component: 'InputValue',
       row: 1,
@@ -28,8 +26,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
     }
   },
   image: {
-    label: 'Image',
-    tableRepresentation: '',
+    label: 'entity.project.fields.image',
     formRepresentation: {
       component: 'FileInput',
       icon: 'mdi-image',
@@ -38,8 +35,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
     }
   },
   description: {
-    label: 'Description',
-    tableRepresentation: '',
+    label: 'entity.project.fields.description',
     formRepresentation: {
       component: 'InputValue',
       row: 3,
@@ -47,8 +43,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
     }
   },
   tags: {
-    label: 'Tags',
-    tableRepresentation: '',
+    label: 'entity.project.fields.tags',
     formRepresentation: {
       component: 'Autocomplete',
       listItems: async () => {

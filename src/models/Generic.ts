@@ -4,7 +4,6 @@ export type GenericRepresentation<Type> = {
 
 export type GenericProperties = {
   label: string
-  tableRepresentation: any
   formRepresentation: FormRepresentation
 }
 
