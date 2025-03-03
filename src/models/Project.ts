@@ -34,11 +34,19 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
       rule: []
     }
   },
+  introduction: {
+    label: 'entity.project.fields.introduction',
+    formRepresentation: {
+      component: 'TextArea',
+      row: 3,
+      rule: []
+    }
+  },
   description: {
     label: 'entity.project.fields.description',
     formRepresentation: {
-      component: 'InputValue',
-      row: 3,
+      component: 'TextArea',
+      row: 4,
       rule: []
     }
   },
@@ -55,10 +63,15 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
           return []
         }
       },
-      row: 4,
+      row: 5,
       rule: []
     }
   }
 }
 
-export const ProjectDataModel: Partial<ProjectCreate> = { image: null, description: '', tags: null }
+export const ProjectDataModel: Partial<ProjectCreate> = {
+  image: null,
+  introduction: '',
+  description: '',
+  tags: null
+}

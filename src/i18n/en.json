@@ -50,6 +50,7 @@
       "fields": {
         "description": "Description",
         "image": "Image",
+        "introduction": "Introduction",
         "name": "Name",
         "tags": "Tags"
       },
