@@ -2,8 +2,11 @@ import { defineStore } from 'pinia'
 import { ApiCall } from '../helpers/API'
 import { ref } from 'vue'
 import { TagCreate, TagOut, TagPatch } from '../api'
+import { useSnackbarStore } from './snackbarStore'
 
 export const useTagStore = defineStore('tagStore', () => {
+  const snackbarStore = useSnackbarStore()
+
   const items = ref<TagOut[]>([])
   const itemsCount = ref<number>(0)
 
@@ -19,25 +22,34 @@ export const useTagStore = defineStore('tagStore', () => {
 
   const createTag = async (tag: TagCreate) => {
     try {
-      await ApiCall.post('/api/tags/create', tag)
-    } catch (error) {
+      const response = await ApiCall.post('/api/tags/create', tag)
+      snackbarStore.showSnackBar(response.status, `Tag ${tag.name} created`)
+    } catch (error: any) {
       console.warn(error)
+      snackbarStore.showSnackBar(error.status)
     }
   }
 
-  const editTag = async (tagId: string, tag: TagPatch) => {
+  const editTag = async (tagPreUpdate: TagOut, tagUpdated: TagPatch) => {
     try {
-      await ApiCall.patch(`/api/tags/patch/${tagId}`, tag)
-    } catch (error) {
+      const response = await ApiCall.patch(`/api/tags/patch/${tagPreUpdate.id}`, tagUpdated)
+      snackbarStore.showSnackBar(
+        response.status,
+        `Tag ${tagUpdated.name ?? tagPreUpdate.name} edited`
+      )
+    } catch (error: any) {
       console.warn(error)
+      snackbarStore.showSnackBar(error.status)
     }
   }
 
-  const deleteTagById = async (tagId: string) => {
+  const deleteTagById = async (tag: TagOut) => {
     try {
-      await ApiCall.delete(`/api/tags/delete/${tagId}`)
-    } catch (error) {
+      const response = await ApiCall.delete(`/api/tags/delete/${tag.id}`)
+      snackbarStore.showSnackBar(response.status, `Tag ${tag.name} deleted`)
+    } catch (error: any) {
       console.warn(error)
+      snackbarStore.showSnackBar(error.status)
     }
   }
 
