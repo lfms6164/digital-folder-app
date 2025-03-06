@@ -30,7 +30,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
     formRepresentation: {
       component: 'FileInput',
       icon: 'mdi-image',
-      row: 2,
+      row: 1,
       rule: []
     }
   },
@@ -38,7 +38,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
     label: 'entity.project.fields.introduction',
     formRepresentation: {
       component: 'TextArea',
-      row: 3,
+      row: 2,
       rule: []
     }
   },
@@ -46,7 +46,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
     label: 'entity.project.fields.description',
     formRepresentation: {
       component: 'TextArea',
-      row: 4,
+      row: 3,
       rule: []
     }
   },
@@ -63,7 +63,7 @@ export const ProjectRepresentation: GenericRepresentation<ProjectOut> = {
           return []
         }
       },
-      row: 5,
+      row: 4,
       rule: []
     }
   }
