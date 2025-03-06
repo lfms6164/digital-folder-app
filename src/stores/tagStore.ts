@@ -26,7 +26,7 @@ export const useTagStore = defineStore('tagStore', () => {
       snackbarStore.showSnackBar(response.status, `Tag ${tag.name} created`)
     } catch (error: any) {
       console.warn(error)
-      snackbarStore.showSnackBar(error.status)
+      snackbarStore.showSnackBar(error.status, error.response.data.detail)
     }
   }
 
@@ -39,7 +39,7 @@ export const useTagStore = defineStore('tagStore', () => {
       )
     } catch (error: any) {
       console.warn(error)
-      snackbarStore.showSnackBar(error.status)
+      snackbarStore.showSnackBar(error.status, error.response.data.detail)
     }
   }
 
@@ -49,7 +49,7 @@ export const useTagStore = defineStore('tagStore', () => {
       snackbarStore.showSnackBar(response.status, `Tag ${tag.name} deleted`)
     } catch (error: any) {
       console.warn(error)
-      snackbarStore.showSnackBar(error.status)
+      snackbarStore.showSnackBar(error.status, error.response.data.detail)
     }
   }
 

@@ -47,7 +47,7 @@ export const useProjectStore = defineStore('projectStore', () => {
         snackbarStore.showSnackBar(response.status, `Project ${project.name} created`)
       } catch (error: any) {
         console.warn(error)
-        snackbarStore.showSnackBar(error.status)
+        snackbarStore.showSnackBar(error.status, error.response.data.detail)
       }
     }
   }
@@ -76,7 +76,7 @@ export const useProjectStore = defineStore('projectStore', () => {
         )
       } catch (error: any) {
         console.warn(error)
-        snackbarStore.showSnackBar(error.status)
+        snackbarStore.showSnackBar(error.status, error.response.data.detail)
       }
     }
   }
@@ -87,7 +87,7 @@ export const useProjectStore = defineStore('projectStore', () => {
       snackbarStore.showSnackBar(response.status, `Project ${project.name} deleted`)
     } catch (error: any) {
       console.warn(error)
-      snackbarStore.showSnackBar(error.status)
+      snackbarStore.showSnackBar(error.status, error.response.data.detail)
     }
   }
 
